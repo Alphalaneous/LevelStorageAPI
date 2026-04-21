@@ -17,7 +17,7 @@ void LSEditorPauseLayer::saveLevel() {
 
     auto extraSeparator = "";
 
-    if (str[str.size()-1] != '~') {
+    if (str.size() == 0 || str[str.size()-1] != '~') {
         extraSeparator = "~";
     }
 
