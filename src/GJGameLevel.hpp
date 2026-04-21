@@ -11,7 +11,6 @@ class $modify(LSGJGameLevel, GJGameLevel) {
 	};
 
 	void extractFromString();
-	std::string_view extract(std::string_view guidelines);
 	matjson::Value& getDataContainer(Mod* mod);
 	const matjson::Value& getData();
 	void parseData(std::string_view data);

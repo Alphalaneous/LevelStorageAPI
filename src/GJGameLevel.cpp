@@ -4,44 +4,32 @@
 
 void LSGJGameLevel::extractFromString() {
     const std::string str = ZipUtils::decompressString(m_levelString, false, 0);
+    const char* data = str.data();
+    const char* end = data + str.size();
 
-    size_t start = 0;
-    size_t end = str.find(';');
-    if (end == std::string::npos) end = str.size();
+    auto nextToken = [end](const char*& ptr) -> std::string_view {
+        const char* comma = static_cast<const char*>(memchr(ptr, ',', end - ptr));
+        if (!comma) comma = end;
+        std::string_view token(ptr, comma - ptr);
+        ptr = comma + 1;
+        return token;
+    };
 
-    bool isKey = true;
-    std::string key;
+    while (data < end) {
+        std::string_view key = nextToken(data);
+        if (data >= end) break;
+        std::string_view value = nextToken(data);
 
-    while (start < end) {
-        size_t comma = str.find(',', start);
-        if (comma == std::string::npos || comma > end)
-            comma = end;
+        if (key == "kA14") {
+            const char* pipe = static_cast<const char*>(memchr(value.data(), '|', value.size()));
+            if (!pipe) continue;
+            const char* tilde = static_cast<const char*>(memchr(pipe + 1, '~', value.data() + value.size() - (pipe + 1)));
+            if (!tilde) continue;
 
-        std::string_view token(&str[start], comma - start);
-
-        if (isKey) {
-            key = token;
-        } 
-        else if (key == "kA14") {
-            parseData(extract(token));
-            return;
+            parseData({pipe + 1, static_cast<size_t>(tilde - (pipe + 1))});
+            return; 
         }
-
-        isKey = !isKey;
-        start = comma + 1;
     }
-}
-
-std::string_view LSGJGameLevel::extract(std::string_view guidelines) {
-    const size_t pipePos = guidelines.find('|');
-    if (pipePos == std::string_view::npos) return {};
-
-    const size_t start = pipePos + 1;
-    const size_t tildePos = guidelines.find('~', start);
-
-    if (tildePos == std::string_view::npos) return {};
-
-    return guidelines.substr(start, tildePos - start);
 }
 
 matjson::Value& LSGJGameLevel::getDataContainer(Mod* mod) {

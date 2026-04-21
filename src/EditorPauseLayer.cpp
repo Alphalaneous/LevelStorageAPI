@@ -5,7 +5,7 @@
 void LSEditorPauseLayer::saveLevel() {
     std::string str = "";
     if (!m_editorLayer->m_levelSettings->m_guidelineString.empty()) {
-        auto split = utils::string::split(m_editorLayer->m_levelSettings->m_guidelineString, "|");
+        auto split = utils::string::split(m_editorLayer->m_levelSettings->m_guidelineString, "~|");
         str = split[0];
     }
     
@@ -15,7 +15,13 @@ void LSEditorPauseLayer::saveLevel() {
     auto dataStr = data.dump(0);
     auto base64 = utils::base64::encode(dataStr);
 
-    m_editorLayer->m_levelSettings->m_guidelineString = fmt::format("{}|{}~0.1~", str, base64);
+    auto extraSeparator = "";
+
+    if (str[str.size()-1] != '~') {
+        extraSeparator = "~";
+    }
+
+    m_editorLayer->m_levelSettings->m_guidelineString = fmt::format("{}{}|{}~0.1~", str, extraSeparator, base64);
 
     EditorPauseLayer::saveLevel();
 }

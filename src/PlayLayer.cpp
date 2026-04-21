@@ -6,13 +6,4 @@ bool LSPlayLayer::init(GJGameLevel* level, bool useReplay, bool dontCreateObject
     lsLevel->extractFromString();
 
     return PlayLayer::init(level, useReplay, dontCreateObjects);
-
-    // alpha::level_storage::getSavedValue<int>(this, "test");
-    // alpha::level_storage::setSavedValue(this, "test", 1);
-
-    /* 	
-        alpha::level_storage::waitForLevel(this, [] {
-
-        });
-    */
 }
