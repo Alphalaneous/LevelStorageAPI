@@ -6,7 +6,9 @@ void LSEditorPauseLayer::saveLevel() {
     std::string str = "";
     if (!m_editorLayer->m_levelSettings->m_guidelineString.empty()) {
         auto split = utils::string::split(m_editorLayer->m_levelSettings->m_guidelineString, "~|");
-        str = split[0];
+        if (split.size() == 2) {
+            str = split[0];
+        }
     }
     
     auto lsLevel = static_cast<LSGJGameLevel*>(m_editorLayer->m_level);
@@ -17,7 +19,7 @@ void LSEditorPauseLayer::saveLevel() {
 
     auto extraSeparator = "";
 
-    if (str.size() == 0 || str[str.size()-1] != '~') {
+    if (str.size() != 0 && str[str.size()-1] != '~') {
         extraSeparator = "~";
     }
 
