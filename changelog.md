@@ -1,3 +1,6 @@
+# 1.0.3
+- Fix guidelines not working anymore.
+
 # 1.0.2
 - Fix leading `~` in guidelines string.
 

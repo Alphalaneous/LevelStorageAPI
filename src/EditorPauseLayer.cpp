@@ -6,7 +6,7 @@ void LSEditorPauseLayer::saveLevel() {
     std::string str = "";
     if (!m_editorLayer->m_levelSettings->m_guidelineString.empty()) {
         auto split = utils::string::split(m_editorLayer->m_levelSettings->m_guidelineString, "~|");
-        if (split.size() == 2) {
+        if (split.size() > 0) {
             str = split[0];
         }
     }
