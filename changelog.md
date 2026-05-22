@@ -1,3 +1,6 @@
+# 1.0.4
+- Fix saved values not actually saving
+
 # 1.0.3
 - Fix guidelines not working anymore.
 
