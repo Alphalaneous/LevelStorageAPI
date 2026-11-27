@@ -13,5 +13,5 @@ class $modify(LSLevelEditorLayer, LevelEditorLayer) {
 
     bool init(GJGameLevel* level, bool noUI);
 
-    bool saveLevel();
+    std::string getLevelString();
 };
