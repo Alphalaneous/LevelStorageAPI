@@ -7,7 +7,7 @@ bool LSLevelEditorLayer::init(GJGameLevel* level, bool noUI) {
     return LevelEditorLayer::init(level, noUI);
 }
 
-bool LSLevelEditorLayer::saveLevel() {
+std::string LSLevelEditorLayer::getLevelString() {
     std::string str = "";
     if (!m_levelSettings->m_guidelineString.empty()) {
         auto split = utils::string::split(m_levelSettings->m_guidelineString, "~|");
@@ -26,5 +26,5 @@ bool LSLevelEditorLayer::saveLevel() {
 
     m_levelSettings->m_guidelineString = fmt::format("{}{}|{}~0.1~", str, extraSeparator, base64::encode(data.dump(0)));
 
-    return LevelEditorLayer::saveLevel();
+    return LevelEditorLayer::getLevelString();
 }
