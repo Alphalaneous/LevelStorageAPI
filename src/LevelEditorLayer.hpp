@@ -8,7 +8,7 @@ using namespace geode::prelude;
 class $modify(LSLevelEditorLayer, LevelEditorLayer) {
 
     static void onModify(auto& self) {
-        (void) self.setHookPriorityPre("LevelEditorLayer::saveLevel", Priority::Last);
+        (void) self.setHookPriorityPre("LevelEditorLayer::getLevelString", Priority::Last);
     }
 
     bool init(GJGameLevel* level, bool noUI);
